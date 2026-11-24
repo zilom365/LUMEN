@@ -1,0 +1,29 @@
+flowchart TD
+  Start[Open Lumen SAR Memorials] --> Entry{Choose how to enter}
+  Entry -->|Admin credentials| Check{Exact demo credentials?}
+  Entry -->|Quick demo button| QuickAdmin[Open administrator workspace\nwithout password check]
+  Entry -->|Family account| FamilyLogin[Register or sign in in this browser]
+  Entry -->|Guest| GuestBrowse[Continue without sign-in]
+  Check -->|Yes| Admin[Administrator workspace]
+  Check -->|No| Error[Show sign-in error]
+  QuickAdmin --> Admin
+  FamilyLogin --> FamilyBrowse[Browse public memorials\nand family favorites]
+  GuestBrowse --> PublicBrowse[Browse public memorials only]
+  Admin --> Records[Add, edit, hide, publish,\nor remove a memorial]
+  Admin --> Media[Manage family-approved\nphotos and videos]
+  Admin --> Settings[QR address and\nlocal backup/restore]
+  FamilyBrowse --> Memorial[Open a public memorial]
+  PublicBrowse --> Memorial
+  Records --> Memorial
+  Memorial --> Actions{What would the visitor like to do?}
+  Actions --> Photos[View public photos]
+  Actions --> Video{Video access demo active?}
+  Video -->|Yes| Play[Watch video up to 60 seconds]
+  Video -->|No| Locked[Show local demo access notice]
+  Actions --> Map[Open cemetery map\nand directions]
+  Actions --> QR[Show or copy memorial QR link]
+  Actions --> Talk[Open Talk to them]
+  Talk --> Consent{Consent checked?}
+  Consent -->|No| Disabled[Keep message box disabled]
+  Consent -->|Yes| Conversation[Exchange visitor messages\nand companion replies]
+  Conversation --> Close[Close or leave page\nchat is not saved]

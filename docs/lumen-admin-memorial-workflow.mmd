@@ -1,0 +1,32 @@
+flowchart LR
+  Login[Admin demo login or quick entry] --> Workspace[Administrator workspace]
+  Workspace --> Choose{Create or edit?}
+  Choose --> New[Create memorial]
+  Choose --> Existing[Edit existing memorial]
+  New --> Form[Enter name and approved details]
+  Existing --> Form
+  Form --> Validate{Name present and inputs valid?}
+  Validate -->|No| Fix[Show error; keep existing record]
+  Fix --> Form
+  Validate -->|Yes| Visibility{Choose public or private}
+  Visibility --> Photo{Change photo?}
+  Photo -->|Yes| Resize[Resize approved image]
+  Photo -->|No| Video{Change video?}
+  Resize --> PhotoStore[Save photo with browser record]
+  PhotoStore --> Video
+  Video -->|Upload| Check[Check type, ≤100 MB, ≤60 seconds]
+  Video -->|Direct link| Link[Validate HTTP or HTTPS link]
+  Video -->|No change| Save[Save memorial fields in localStorage]
+  Video -->|Remove| Remove[Clear reference and remove video blob]
+  Check -->|Valid| Blob[Save video blob in IndexedDB]
+  Check -->|Invalid| Error[Show error; preserve previous record]
+  Link --> Save
+  Blob --> Save
+  Remove --> Save
+  Visibility --> Save
+  Save --> Public{Public?}
+  Public -->|Yes| Shown[Visible to guests and shareable by QR]
+  Public -->|No| Hidden[Hidden from guest browsing]
+  Shown --> Backup[Optional JSON export/import]
+  Hidden --> Backup
+  Backup --> Limit[JSON excludes uploaded video blobs]

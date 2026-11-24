@@ -1,0 +1,27 @@
+sequenceDiagram
+  actor Visitor
+  participant UI as Memorial page in browser
+  participant State as Per-memorial page-session state
+  participant Server as Python /api/chat
+  participant AI as Live AI service
+  participant Fallback as Guided scripted reply
+
+  Visitor->>UI: Open Talk to them for this memorial
+  UI-->>Visitor: Show AI disclosure and consent checkbox
+  Note over UI,Visitor: If consent is not checked, the composer stays disabled and nothing is sent.
+  Visitor->>UI: Check consent, type a message, and press Send
+  UI->>State: Add visitor message on the right
+  UI->>Server: Send consent, public memorial facts, and recent turns
+  Server->>Server: Check consent, request size, format, and rate limit
+  opt Live credentials and configured model are available
+    Server->>AI: Request a grounded response using server-side credentials
+    AI-->>Server: Companion reply
+  end
+  opt No live service is configured
+    Server->>Fallback: Build a contextual scripted laptop reply
+    Fallback-->>Server: Guided sample response, not live AI
+  end
+  Server-->>UI: Return response or an actionable error
+  UI->>State: Add companion reply on the left
+  UI-->>Visitor: Show both speakers in this memorial's transcript
+  Note over State,Server: Chat history is not written to localStorage, IndexedDB, or a database.

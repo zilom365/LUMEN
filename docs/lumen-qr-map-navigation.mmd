@@ -1,0 +1,23 @@
+flowchart TD
+  Admin[Administrator opens QR settings] --> Base{Public base URL configured?}
+  Base -->|Yes| UseBase[Use configured site address]
+  Base -->|No| Current[Use current browser address]
+  UseBase --> Link[Build link with public memorial ID]
+  Current --> Link
+  Link --> QR[Generate QR code]
+  QR --> Scan[Phone scans code]
+  Scan --> Reach{Can the phone reach this address?}
+  Reach -->|No: laptop localhost/private address on another network| Explain[Explain network limit; use public HTTPS\nfor cross-network scanning]
+  Reach -->|Yes| Page[Open memorial link]
+  Page --> Public{Is this memorial public?}
+  Public -->|No| Denied[Guest cannot view private memorial]
+  Public -->|Yes| Select[Read the cemetery name]
+  Select --> Destination[Use verified cemetery-level destination]
+  Destination --> Map[Show OpenStreetMap view and cemetery pin]
+  Destination --> Directions[Offer external directions link]
+  Map --> Accuracy[Explain that this is not an individual grave pin]
+  Directions --> Accuracy
+  Accuracy --> Plot{Verified section or plot entered?}
+  Plot -->|No| NoPlot[Show plot details not recorded]
+  Plot -->|Yes| Ref[Show family-entered text only;\nroute still goes to cemetery]
+  QR -.-> Privacy[QR contains memorial URL, not private memorial data]

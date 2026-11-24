@@ -1,0 +1,63 @@
+erDiagram
+  MEMORIAL {
+    string id PK
+    string name
+    string birth_year
+    string death_year
+    string cemetery
+    string section_optional
+    string plot_optional
+    string epitaph
+    string story
+    boolean public
+    boolean sample_record
+  }
+
+  FAMILY_DEMO_ACCOUNT {
+    string email PK
+    string name
+    string password_demo_only
+  }
+
+  BROWSER_SESSION {
+    string role
+    string name
+    string email
+  }
+
+  FAVORITE {
+    string family_email FK
+    string memorial_id FK
+  }
+
+  VIDEO_ACCESS_FLAG {
+    string family_email FK
+    boolean unlocked_in_this_browser
+  }
+
+  MEDIA_REFERENCE {
+    string memorial_id FK
+    string photo_data_or_url
+    string video_blob_id_optional
+    string direct_video_url_optional
+  }
+
+  VIDEO_BLOB {
+    string blob_id PK
+    binary video_file
+  }
+
+  BROWSER_SETTINGS {
+    string public_base_url_optional
+  }
+
+  FAMILY_DEMO_ACCOUNT ||--o{ FAVORITE : saves
+  MEMORIAL ||--o{ FAVORITE : appears_in
+  FAMILY_DEMO_ACCOUNT ||--o| VIDEO_ACCESS_FLAG : has_demo_flag
+  MEMORIAL ||--o{ MEDIA_REFERENCE : displays
+  MEDIA_REFERENCE }o--o| VIDEO_BLOB : points_to
+  FAMILY_DEMO_ACCOUNT ||--o{ BROWSER_SESSION : may_start
+
+  %% Storage note: memorials, accounts, favorites, session and settings use localStorage.
+  %% Uploaded video binary uses IndexedDB. There is no relational database in this demo.
+  %% Chat history exists only in memory while a memorial page is open.

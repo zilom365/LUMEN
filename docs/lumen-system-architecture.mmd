@@ -1,0 +1,41 @@
+flowchart TB
+  Admin[Administrator]
+  Family[Family member]
+  Guest[Guest visitor]
+  App[Browser application: index.html, app.js and styles.css]
+  Store[localStorage: records, demo accounts, favorites and settings]
+  Video[IndexedDB: uploaded video blobs]
+  QR[QR code: public memorial link]
+  Map[Map view: cemetery destination]
+  Static[Python server serves app files]
+  Status[GET /api/status]
+  Chat[POST /api/chat: consent, size and rate checks]
+  Health[GET /_app/health]
+  Choice{Server has live credentials and model?}
+  Live[Live AI service called from server]
+  Script[Guided scripted reply for laptop or no live AI]
+  OSM[OpenStreetMap embed]
+  Directions[External directions link]
+  Laptop[Laptop demo]
+  Hosted[Hosted capstone demo]
+  Admin --> App
+  Family --> App
+  Guest --> App
+  Laptop --> Static
+  Hosted --> Static
+  Static --> App
+  App --> Store
+  App --> Video
+  App --> QR
+  App --> Map
+  App --> Status
+  App -->|after consent| Chat
+  Chat --> Choice
+  Choice -->|yes| Live
+  Choice -->|no| Script
+  Live --> Reply[Reply shown in this memorial's page session]
+  Script --> Reply
+  Map --> OSM
+  Map --> Directions
+  Health --> Static
+  QR -. encodes address only .-> App
