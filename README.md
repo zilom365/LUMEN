@@ -1,4 +1,4 @@
-# Lumen  Memorials
+# Lumen Memorials
 
 A browser-based Memorial Platform developed as an academic capstone project. It provides administrator, family-member, and guest experiences for managing and exploring digital memorials.
 
@@ -64,14 +64,13 @@ The project includes a Dockerfile for container-based deployment. The GitHub rep
 
 **Teammate 2:**
 - Project journal
-- Software testing and documentation
 - README and Notion updates
 - Deployment verification
 
 ## Project Links
 
-- **GitHub:** [Repository Link](https://chatgpt.com/share/6b05bb53-3d00-83ec-a77c-658ec2f64fbf)
-- **Live Website:** [[Vercel URL]](https://lumen-sepia-psi.vercel.app)
+- **GitHub:** https://github.com/zilom365/LUMEN.git
+- **Live Website:** https://lumen-sepia-psi.vercel.app/
 
 ## Note
 
